@@ -10,9 +10,10 @@ const defaultConfig = {
 	},
 	pool: {
 		max: 20,
-		idleTimeoutMillis: 30000,
-		log: false
+		log: false,
+		refreshIdle: false
 	},
+	singleUse: false,
 	native: false,
 	on_notice: notice => null,
 	on_error: err => console.log('PG', err)
@@ -61,26 +62,46 @@ module.exports = function (configuration) {
 		client.end();
 	}
 
+	function release(client) {
+		if (config.singleUse) {
+			return destroy(client);
+		} else {
+			pool.release(client);
+			return q();
+		}
+	}
+
+	function destroy(client) {
+		pool.destroy(client);
+		return q();
+	}
+
+	/* Run callback (which returns promise) inside a transaction */
 	function transaction(content) {
 		return q.ninvoke(pool, 'acquire')
 			.then(client => client.runQuery('BEGIN TRANSACTION'))
 			.then(client => content(client.runQuery)
 				.then(
-					res => client.runQuery('COMMIT').thenResolve(res),
-					err => client.runQuery('ROLLBACK').thenReject(err))
-				.finally(() => pool.release(client)));
+					res => client.runQuery('COMMIT').then(() => release(client)).thenResolve(res),
+					err => client.runQuery('ROLLBACK').then(() => destroy(client)).thenReject(err)));
 	}
 
+	/* Run query */
 	function query(sql) {
 		return q.ninvoke(pool, 'acquire')
 			.then(client => client.runQuery(sql)
-				.finally(() => pool.release(client)));
+				.then(
+					res => release(client).thenResolve(res),
+					err => destroy(client).thenReject(err)));
 	}
 
+	/* Provide client to callback (which returns promise) */
 	function use(content) {
 		return q.ninvoke(pool, 'acquire')
 			.then(client => content(client)
-				.finally(() => pool.release(client)));
+				.then(
+					res => release(client).thenResolve(res),
+					err => destroy(client).thenReject(err)));
 	}
 
 };
