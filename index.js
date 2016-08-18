@@ -52,6 +52,7 @@ module.exports = function (configuration) {
 				client.on('notice', config.on_notice);
 			}
 			client.runQuery = q.nbind(client.query, client);
+			client.runQuery.client = client;
 			cb(null, client);
 		});
 	}
