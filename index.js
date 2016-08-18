@@ -77,4 +77,10 @@ module.exports = function (configuration) {
 				.finally(() => pool.release(client)));
 	}
 
+	function use(content) {
+		return q.ninvoke(pool, 'acquire')
+			.then(client => content(client)
+				.finally(() => pool.release(client)));
+	}
+
 };
