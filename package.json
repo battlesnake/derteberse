@@ -1,0 +1,33 @@
+{
+  "name": "derteberse",
+  "version": "1.0.0",
+  "description": "Postgres connection pooler (promise-based)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"lol\" | figlet && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/battlesnake/derteberse.git"
+  },
+  "keywords": [
+    "PostgreSQL",
+    "Postgres",
+    "Postgre",
+    "pool",
+    "connection",
+    "pool"
+  ],
+  "author": "Mark K Cowan",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/battlesnake/derteberse/issues"
+  },
+  "homepage": "https://github.com/battlesnake/derteberse#readme",
+  "dependencies": {
+    "generic-pool": "^2.4.2",
+    "lodash": "^4.15.0",
+    "pg": "^6.1.0",
+    "q": "^1.4.1"
+  }
+}
