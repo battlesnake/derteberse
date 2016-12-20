@@ -19,8 +19,9 @@ const defaultConfig = {
 	on_error: err => console.log('PG', err)
 };
 
-module.exports = function (configuration) {
+module.exports = Derteberse;
 
+function Derteberse(configuration) {
 	const config = _.defaultsDeep(
 		{ pool: {
 			create: poolAdd,
@@ -35,7 +36,10 @@ module.exports = function (configuration) {
 
 	const pg = config.native ? postgres.native : postgres;
 
-	return { query, transaction, use };
+	this.query = query;
+	this.transaction = transaction;
+	this.use = use;
+	this.steal = steal;
 
 	function poolAdd(cb) {
 		const client = new pg.Client(config.db);
@@ -104,4 +108,8 @@ module.exports = function (configuration) {
 					err => destroy(client).thenReject(err)));
 	}
 
-};
+	function steal() {
+		return q.ninvoke(pool, 'acquire');
+	}
+
+}
