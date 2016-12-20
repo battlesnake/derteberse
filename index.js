@@ -35,7 +35,7 @@ module.exports = function (configuration) {
 
 	const pg = config.native ? postgres.native : postgres;
 
-	return { query, transaction };
+	return { query, transaction, use };
 
 	function poolAdd(cb) {
 		const client = new pg.Client(config.db);
