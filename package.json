@@ -1,6 +1,6 @@
 {
   "name": "derteberse",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Postgres connection pooler (promise-based)",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "generic-pool": "^2.4.2",
     "lodash": "^4.15.0",
     "pg": "^6.1.0",
+    "pg-escape": "^0.2.0",
     "q": "^1.4.1"
   }
 }
