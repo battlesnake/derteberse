@@ -48,7 +48,7 @@ function Listener(derteberse, opts) {
 		cb.add(func);
 	});
 
-	this.function = (topic, func) => new Promise((res, rej) => {
+	this.unsubscribe = (topic, func) => new Promise((res, rej) => {
 		const cb = subs.get(topic);
 		if (!cb || !cb.delete(func)) {
 			return;
