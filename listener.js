@@ -40,7 +40,7 @@ function Listener(derteberse, opts) {
 
 	this.subscribe = (topic, func) => new Promise((res, rej) => {
 		const cb = subs.get(topic) || new Set();
-		const is_new = cb.length === 0;
+		const is_new = cb.size === 0;
 		if (is_new) {
 			subs.set(topic, cb);
 			con.then(client => client.query(escape('listen %I;', topic), err => err ? rej(err) : res()));
