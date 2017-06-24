@@ -64,4 +64,12 @@ function Listener(derteberse, opts) {
 		}
 	});
 
+	this.reset = () => {
+		const topics = subs.keys();
+		subs.clear();
+		return Promise.all(
+			topics.map(topic => new Promise((res, rej) =>
+				con.then(client => client.query(escape('unlisten %I;', topic), err => err ? rej(err) : res())))));
+	};
+
 }
