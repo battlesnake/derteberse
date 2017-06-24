@@ -65,7 +65,7 @@ function Listener(derteberse, opts) {
 	});
 
 	this.reset = () => {
-		const topics = subs.keys();
+		const topics = [...subs.keys()];
 		subs.clear();
 		return Promise.all(
 			topics.map(topic => new Promise((res, rej) =>
