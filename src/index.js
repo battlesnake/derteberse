@@ -1,7 +1,2 @@
-import DB from './db';
-import Listener from './listener';
-
-DB.DB = DB;
-DB.Listener = Listener;
-
-export default DB;
+export { default as DB } from './db';
+export { default as Listener } from './listener';
