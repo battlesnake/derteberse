@@ -1,10 +1,11 @@
 {
   "name": "derteberse",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Postgres connection pooler (promise-based)",
-  "main": "index.js",
+  "main": "bin/index.js",
   "scripts": {
-    "test": "echo \"lol\" | figlet && exit 1"
+    "test": "make test",
+    "postinstall": "make build"
   },
   "repository": {
     "type": "git",
@@ -25,10 +26,37 @@
   },
   "homepage": "https://github.com/battlesnake/derteberse#readme",
   "dependencies": {
-    "generic-pool": "^2.4.2",
-    "lodash": "^4.15.0",
+    "eventemitter": "github:battlesnake/eventemitter",
+    "generic-pool": "^3.1.7",
+    "lodash": "^4.17.4",
     "pg": "^6.4.0",
-    "pg-escape": "^0.2.0",
-    "q": "^1.4.1"
+    "pg-escape": "^0.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-istanbul": "^4.1.4",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-latest": "^6.24.1",
+    "chai": "^4.1.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "^3.4.2",
+    "source-map-support": "^0.4.15"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ],
+    "plugins": [],
+    "ignore": [
+      "node_modules"
+    ],
+    "sourceMaps": "inline",
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
   }
 }

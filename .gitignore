@@ -1,3 +1,5 @@
 .*.swp
 .*.swo
+coverage/
+bin/
 node_modules/
