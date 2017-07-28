@@ -20,7 +20,7 @@
     "pool"
   ],
   "author": "Mark K Cowan",
-  "license": "GPL-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/battlesnake/derteberse/issues"
   },
